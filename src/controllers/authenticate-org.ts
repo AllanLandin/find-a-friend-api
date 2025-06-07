@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { makeAuthenticateOrgUseCase } from "../factories/make-register-org-use-case copy";
 import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { makeAuthenticateOrgUseCase } from "../use-cases/factories/make-authenticate-org-use-case";
 
 export async function authenticateOrg(req: FastifyRequest, reply: FastifyReply){
     const registerOrgRequestSchema = z.object({

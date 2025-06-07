@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import { OrgAlreadyExistsError } from "../errors/org-already-exists";
-import { IOrgsRepository } from "../repositorys/interfaces/orgs-repository-interface";
+import { OrgsRepositoryInterface } from "../repositorys/orgs-repository-interface";
 
-interface IOrgCreationInput{
+interface OrgCreationParams{
     id?: string;
     name: string;
     description?: string | null;
@@ -19,10 +19,10 @@ interface IOrgCreationInput{
     longitude: number;
 }
 
-export class RegisterOrgUseCase{
-    constructor(private orgRepository: IOrgsRepository){}
+export class CreateOrgUseCase{
+    constructor(private orgRepository: OrgsRepositoryInterface){}
 
-    async execute(data: IOrgCreationInput){
+    async execute(data: OrgCreationParams){
         const orgWithSameEmail = await this.orgRepository.findByEmail(data.email)
         
         if(orgWithSameEmail){
@@ -31,7 +31,7 @@ export class RegisterOrgUseCase{
 
         const hashedPassword = await bcrypt.hash(data.password, 6)
 
-        const newOrg = await this.orgRepository.registerNewOrg({...data, password: hashedPassword})
+        const newOrg = await this.orgRepository.create({...data, password: hashedPassword})
         return newOrg;
     }
 }

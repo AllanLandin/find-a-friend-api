@@ -1,8 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { registerOrg } from "../controllers/register-org";
+
 import { authenticateOrg } from "../controllers/authenticate-org";
+import { createOrg } from "../controllers/create-org";
 
 export async function authRoutes(app: FastifyInstance) {
-    app.post("/org/register", registerOrg)
+    app.post("/org/register", createOrg)
     app.post("/org/login", authenticateOrg)
 }

@@ -1,17 +1,17 @@
 import bcrypt from "bcryptjs";
-import { IOrgsRepository } from "../repositorys/interfaces/orgs-repository-interface";
 import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { OrgsRepositoryInterface } from "../repositorys/orgs-repository-interface";
 
-interface IAuthRequest{
+interface AuthParams{
     email: string
     password: string
 }
 
 export class AuthenticateOrgUseCase{
-    constructor(private orgRepository: IOrgsRepository){}
+    constructor(private orgsRepository: OrgsRepositoryInterface){}
 
-    async execute({email, password}: IAuthRequest){
-        const org = await this.orgRepository.findByEmail(email)
+    async execute({email, password}: AuthParams){
+        const org = await this.orgsRepository.findByEmail(email)
         
         if(!org){
             throw new InvalidCredentialsError();

@@ -34,27 +34,30 @@ Uma aplicação em nodeJS que simula o controle de pets em adoção de diferente
 
 # Rotas 🚋
 
-### 🟢 POST /auth/org/register
+### 🟢 POST /auth/org/register - Não requer autenticação
 - Registra uma org no banco de dados
 - É importante enviar o body conforme abaixo:
   - "email": `string`, "password": `string`, "name": `string`, "description": `string`, "whatsapp": `string`, "author_name": `string`, "cep": `string`, "state": `string`, "city": `string`, "neighborhood": `string`, "street": `string`, "latitude": `number` "longitude": `number`
 
-### 🟢 POST /auth/org/login
+### 🟢 POST /auth/org/login - Não requer autenticação
 - Autentica uma org, retornando um token `JWT` que deverá ser incluído no `Authorization header` das rotas privadas
 - É importante enviar o body conforme abaixo:
   - "email": `string`, "password": `string`
 
-### 🟢 POST /pets/create
+
+### 🟢 POST /pets/create - Requer autenticação
 - Cria um pet
 - "name": `string`, "about": `string`, "age": `string`, "size": `string`, "breed": `string`, "energy_level": `string`, "environment": `string`, "org_id": `number`
 
-### 🟢 POST /pets
+
+### 🟢 POST /pets - Não requer autenticação
 - Procura um ou mais pets que correpondem aos querys params passados pela URL.
 - Os parâmetros são os seguintes:
   - "city": `string`, "age": `number`, "size": `string`, "energy_level": `string`, "environment": `string`
   - O único parâmetro obrigatório é o parâmetro `city`
 
-### 🟢 POST /pets/:id
+
+### 🟢 POST /pets/:id - Não requer autenticação
 - Retorna um pet pelo ID dele
 - O `id` deve ser informado no parâmetro da URL
 
